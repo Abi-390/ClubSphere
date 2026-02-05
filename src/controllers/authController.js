@@ -9,7 +9,7 @@ exports.register = async (req, res) => {
 
     // Check if user exists
     const existingUser = await userModel.findOne({ 
-      $or: [{ email }, { username }] 
+      $or: [{ email }, { username }] //More efficient way to check both email and username at once
     });
     if (existingUser) {
       return res.status(400).json({ error: "User already exists" });
@@ -74,7 +74,7 @@ exports.login = async (req, res) => {
 // Get current user
 exports.getCurrentUser = async (req, res) => {
   try {
-    const user = await userModel.findById(req.user.id).select("-passwordHash");
+    const user = await userModel.findById(req.user.id).select("-passwordHash");//.select("-passwordHash") return user data without password
     res.json(user);
   } catch (err) {
     res.status(500).json({ error: err.message });
