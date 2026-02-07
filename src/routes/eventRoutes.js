@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const eventController = require("../controllers/eventController");
 const auth = require("../middlewares/authMiddleware");
+const roleCheck = require("../middlewares/rollcheckMiddleware");
 
 // Create a new event
 router.post("/create", auth, eventController.createEvent);
@@ -13,9 +14,9 @@ router.get("/get", auth, eventController.getEvents);
 router.get("/eventbyid/:id", auth, eventController.getEventById);
 
 // Update an event
-router.put("/update/:id", auth, eventController.updateEvent);
+router.put("/update/:id", auth, roleCheck(['admin', 'owner']), eventController.updateEvent);
 
 // Delete an event
-router.delete("/delete/:id", auth, eventController.deleteEvent);
+router.delete("/delete/:id", auth, roleCheck(['admin', 'owner']), eventController.deleteEvent);
 
 module.exports = router;
