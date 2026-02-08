@@ -14,9 +14,9 @@ router.get("/get", auth, eventController.getEvents);
 router.get("/eventbyid/:id", auth, eventController.getEventById);
 
 // Update an event
-router.put("/update/:id", auth, roleCheck(['admin', 'owner']), eventController.updateEvent);
+router.put("/update/:id", auth,/* roleCheck(['admin', 'owner']),-->future scope*/ eventController.updateEvent);
 
 // Delete an event
-router.delete("/delete/:id", auth, roleCheck(['admin', 'owner']), eventController.deleteEvent);
+router.delete("/delete/:id", auth,/* roleCheck(['admin', 'owner']),-->future scope*/ eventController.deleteEvent);
 
 module.exports = router;

@@ -4,6 +4,7 @@ const connectDB = require("./db/db");
 const authRoutes = require("./routes/authRoutes");
 const clubRoutes = require("./routes/clubRoutes");
 const eventRoutes = require("./routes/eventRoutes");
+const discussionRoutes = require("./routes/discussionRoutes");
 
 
 
@@ -17,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/auth", authRoutes);
 app.use("/api/clubs", clubRoutes);
 app.use("/api/events", eventRoutes);
+app.use("/api/discussions", discussionRoutes);
 
 // Test route
 app.get("/", (req, res) => {

@@ -19,7 +19,7 @@ exports.getDiscussions = async (req, res) => {
       .populate("author", "name email")
       .populate("club", "name")
       .populate("event", "name")
-      .populate("replies");
+      //.populate("replies"); future scope jab reply schema add krunga
     res.json({ discussions });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -33,7 +33,7 @@ exports.getDiscussionById = async (req, res) => {
       .populate("author", "name email")
       .populate("club", "name")
       .populate("event", "name")
-      .populate("replies");
+      //.populate("replies");future scope jab reply schema add krunga
     if (!discussion)
       return res.status(404).json({ error: "Discussion not found" });
     res.json({ discussion });

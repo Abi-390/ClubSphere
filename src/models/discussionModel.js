@@ -18,7 +18,7 @@ const discussionSchema = new mongoose.Schema(
     club: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Club",
-      required: false,
+      required: true,
     },
     event: {
       type: mongoose.Schema.Types.ObjectId,
