@@ -4,7 +4,9 @@ const discussionSchema = new mongoose.Schema(
   {
     title: {
       type: String,
-      required: true,
+      required: function () {
+        return this.parent === null; //only require title for top-level discussions, not for replies
+      },
     },
     content: {
       type: String,
@@ -18,19 +20,22 @@ const discussionSchema = new mongoose.Schema(
     club: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Club",
-      required: true,
+      required: false,
     },
     event: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Event",
       required: false,
     },
-    replies: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "DiscussionReply",
-      },
-    ],
+    parent: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Discussion",
+      default: null,
+    },
+    depth: {
+      type: Number,
+      default: 0,
+    },
   },
   { timestamps: true },
 );
