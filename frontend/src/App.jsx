@@ -1,11 +1,13 @@
-import React from 'react'
+import React from 'react';
+import LandingPage from './pages/LandingPage';
+import './index.css';
 
-const App = () => {
+function App() {
   return (
-    <div>
-      
+    <div className="App">
+      <LandingPage />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
