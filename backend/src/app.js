@@ -5,6 +5,8 @@ const authRoutes = require("./routes/authRoutes");
 const clubRoutes = require("./routes/clubRoutes");
 const eventRoutes = require("./routes/eventRoutes");
 const discussionRoutes = require("./routes/discussionRoutes");
+const cors = require("cors");
+
 
 
 
@@ -13,6 +15,11 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true
+}));
+
 
 // Routes
 app.use("/api/auth", authRoutes);

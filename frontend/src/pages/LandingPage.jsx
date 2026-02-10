@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { 
   Calendar, 
   Users, 
@@ -7,8 +8,6 @@ import {
   Menu, 
   X,
   MapPin,
-  Clock,
-  User
 } from 'lucide-react';
 
 const LandingPage = () => {
@@ -32,30 +31,36 @@ const LandingPage = () => {
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <div className="flex items-center gap-3">
+            <Link to="/" className="flex items-center gap-3">
               <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
                 <svg viewBox="0 0 24 24" className="w-6 h-6 text-white" fill="currentColor">
                   <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
                 </svg>
               </div>
               <span className="text-xl font-bold tracking-tight">ClubSphere</span>
-            </div>
+            </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">
-              <a href="#discovery" className="text-gray-300 hover:text-white transition-colors">Discovery</a>
-              <a href="#clubs" className="text-gray-300 hover:text-white transition-colors">My Clubs</a>
+              <a href="#features" className="text-gray-300 hover:text-white transition-colors">Features</a>
               <a href="#events" className="text-gray-300 hover:text-white transition-colors">Events</a>
+              <a href="#about" className="text-gray-300 hover:text-white transition-colors">About</a>
             </div>
 
             {/* Auth Buttons */}
             <div className="hidden md:flex items-center gap-4">
-              <button className="text-gray-300 hover:text-white transition-colors px-4 py-2">
+              <Link 
+                to="/login" 
+                className="text-gray-300 hover:text-white transition-colors px-4 py-2"
+              >
                 Log In
-              </button>
-              <button className="bg-blue-600 hover:bg-blue-700 transition-colors px-6 py-2 rounded-lg font-medium">
+              </Link>
+              <Link 
+                to="/register" 
+                className="bg-blue-600 hover:bg-blue-700 transition-colors px-6 py-2 rounded-lg font-medium"
+              >
                 Get Started
-              </button>
+              </Link>
             </div>
 
             {/* Mobile Menu Button */}
@@ -70,16 +75,22 @@ const LandingPage = () => {
           {/* Mobile Menu */}
           {isMenuOpen && (
             <div className="md:hidden mt-6 pb-6 space-y-4 animate-fadeIn">
-              <a href="#discovery" className="block text-gray-300 hover:text-white transition-colors">Discovery</a>
-              <a href="#clubs" className="block text-gray-300 hover:text-white transition-colors">My Clubs</a>
+              <a href="#features" className="block text-gray-300 hover:text-white transition-colors">Features</a>
               <a href="#events" className="block text-gray-300 hover:text-white transition-colors">Events</a>
+              <a href="#about" className="block text-gray-300 hover:text-white transition-colors">About</a>
               <div className="pt-4 space-y-3">
-                <button className="w-full text-left text-gray-300 hover:text-white transition-colors px-4 py-2">
+                <Link 
+                  to="/login" 
+                  className="block w-full text-center text-gray-300 hover:text-white transition-colors px-4 py-2"
+                >
                   Log In
-                </button>
-                <button className="w-full bg-blue-600 hover:bg-blue-700 transition-colors px-6 py-2 rounded-lg font-medium">
+                </Link>
+                <Link 
+                  to="/register" 
+                  className="block w-full text-center bg-blue-600 hover:bg-blue-700 transition-colors px-6 py-2 rounded-lg font-medium"
+                >
                   Get Started
-                </button>
+                </Link>
               </div>
             </div>
           )}
@@ -94,7 +105,7 @@ const LandingPage = () => {
             <div className="space-y-8 animate-slideInLeft">
               <div className="inline-block">
                 <span className="text-xs font-semibold tracking-wider text-blue-400 bg-blue-500/10 px-4 py-2 rounded-full border border-blue-500/20">
-                  PLATFORM VERSION 1.0 NOW LIVE
+                  PLATFORM VERSION 2.0 NOW LIVE
                 </span>
               </div>
               
@@ -110,13 +121,19 @@ const LandingPage = () => {
               </div>
 
               <div className="flex flex-wrap gap-4">
-                <button className="bg-blue-600 hover:bg-blue-700 transition-all px-8 py-4 rounded-lg font-semibold flex items-center gap-2 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40">
+                <Link 
+                  to="/register" 
+                  className="bg-blue-600 hover:bg-blue-700 transition-all px-8 py-4 rounded-lg font-semibold flex items-center gap-2 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40"
+                >
                   Start a Club
                   <ArrowRight size={20} />
-                </button>
-                <button className="border border-gray-700 hover:border-gray-600 transition-colors px-8 py-4 rounded-lg font-semibold">
+                </Link>
+                <Link 
+                  to="/login" 
+                  className="border border-gray-700 hover:border-gray-600 transition-colors px-8 py-4 rounded-lg font-semibold"
+                >
                   Explore Communities
-                </button>
+                </Link>
               </div>
             </div>
 
@@ -147,10 +164,10 @@ const LandingPage = () => {
                     ))}
                   </div>
                   <div className="flex justify-between text-xs text-gray-500">
-                    <span>January</span>
-                    <span>February</span>
-                    <span>March</span>
-                    <span>April</span>
+                    <span>Jan</span>
+                    <span>Feb</span>
+                    <span>Mar</span>
+                    <span>Apr</span>
                     <span>May</span>
                   </div>
                 </div>
@@ -193,7 +210,7 @@ const LandingPage = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 px-6">
+      <section id="features" className="py-20 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">Empower Your Community</h2>
@@ -246,99 +263,6 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Events Section */}
-      <section className="py-20 px-6 bg-gradient-to-b from-transparent to-gray-900/50">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex justify-between items-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold">Upcoming Events</h2>
-            <button className="text-blue-500 font-semibold flex items-center gap-2 hover:gap-3 transition-all">
-              View All
-              <ArrowRight size={20} />
-            </button>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                image: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                tag: 'TECH TALK',
-                icon: '📱',
-                title: 'Digital Design Sync 2024',
-                description: 'Monthly meeting for digital designers to get to discuss trends and share work.',
-                attendees: 120,
-                location: 'Online',
-                badge: 'Interested'
-              },
-              {
-                image: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-                tag: 'OUTDOOR',
-                icon: '⛰️',
-                title: 'Weekend Peak Challenge',
-                description: 'A challenging 2-day trek for experienced hikers and enthusiasts. Limited spots available.',
-                attendees: 45,
-                location: 'Mountains',
-                badge: 'Interested'
-              },
-              {
-                image: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-                tag: 'PROFESSIONAL',
-                icon: '🤖',
-                title: 'AI & Ethics Roundtable',
-                description: 'A virtual discussion with industry experts on the future of responsible AI development.',
-                attendees: 200,
-                location: 'Online',
-                badge: 'Interested'
-              }
-            ].map((event, i) => (
-              <div 
-                key={i} 
-                className="bg-gray-800/50 rounded-2xl overflow-hidden border border-gray-700/50 hover:border-gray-600/50 transition-all hover:shadow-2xl group animate-fadeIn"
-                style={{ animationDelay: `${i * 150}ms` }}
-              >
-                <div 
-                  className="h-48 relative overflow-hidden"
-                  style={{ background: event.image }}
-                >
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-all"></div>
-                  <div className="absolute top-4 left-4 text-4xl">{event.icon}</div>
-                </div>
-                
-                <div className="p-6">
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className="text-xs font-bold text-gray-400">{event.tag}</span>
-                    <span className="text-gray-600">•</span>
-                    <span className="text-xs text-gray-400 flex items-center gap-1">
-                      <MapPin size={12} />
-                      {event.location}
-                    </span>
-                  </div>
-                  
-                  <h3 className="text-xl font-bold mb-3">{event.title}</h3>
-                  <p className="text-gray-400 text-sm mb-6 leading-relaxed">{event.description}</p>
-                  
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="flex -space-x-2">
-                        {[1, 2, 3].map((_, idx) => (
-                          <div 
-                            key={idx} 
-                            className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 border-2 border-gray-800"
-                          ></div>
-                        ))}
-                      </div>
-                      <span className="text-sm text-gray-400">+{event.attendees}</span>
-                    </div>
-                    <button className="text-blue-500 border border-blue-500 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-500 hover:text-white transition-all">
-                      {event.badge}
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* CTA Section */}
       <section className="py-20 px-6">
         <div className="max-w-5xl mx-auto">
@@ -360,12 +284,18 @@ const LandingPage = () => {
               </p>
               
               <div className="flex flex-wrap justify-center gap-4">
-                <button className="bg-white text-blue-600 hover:bg-gray-100 transition-colors px-8 py-4 rounded-lg font-bold shadow-xl">
+                <Link 
+                  to="/register" 
+                  className="bg-white text-blue-600 hover:bg-gray-100 transition-colors px-8 py-4 rounded-lg font-bold shadow-xl"
+                >
                   Get Started Free
-                </button>
-                <button className="border-2 border-white text-white hover:bg-white/10 transition-colors px-8 py-4 rounded-lg font-bold">
-                  Request a Demo
-                </button>
+                </Link>
+                <Link 
+                  to="/login" 
+                  className="border-2 border-white text-white hover:bg-white/10 transition-colors px-8 py-4 rounded-lg font-bold"
+                >
+                  Sign In
+                </Link>
               </div>
             </div>
           </div>
@@ -395,15 +325,15 @@ const LandingPage = () => {
             {[
               {
                 title: 'Product',
-                links: ['Features', 'Roles & Access', 'Pricing', 'Enterprise']
+                links: ['Features', 'Pricing', 'Enterprise']
               },
               {
                 title: 'Resources',
-                links: ['Community Hub', 'Support Center', 'API Docs', 'Guides']
+                links: ['Support Center', 'API Docs', 'Guides']
               },
               {
                 title: 'Company',
-                links: ['About Us', 'Careers', 'Blog', 'Legal']
+                links: ['About Us', 'Careers', 'Blog']
               }
             ].map((section, i) => (
               <div key={i}>
@@ -424,10 +354,7 @@ const LandingPage = () => {
           {/* Bottom Bar */}
           <div className="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-gray-500 text-sm">
-              Build with ❤️ by Abinash. 
-            </p>
-            <p className="text-gray-500 text-sm">
-             © 2026 ClubSphere Inc. All rights reserved.
+              © 2024 ClubSphere Inc. All rights reserved.
             </p>
             <div className="flex gap-6">
               <a href="#" className="text-gray-500 hover:text-white transition-colors text-sm">
