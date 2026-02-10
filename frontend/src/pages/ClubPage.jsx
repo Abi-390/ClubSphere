@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { eventService, discussionService, clubService } from "../services/api.service";
+import {
+  eventService,
+  discussionService,
+  clubService,
+} from "../services/api.service";
 import { Plus, Calendar, MessageCircle, Loader } from "lucide-react";
 
 const ClubPage = () => {
@@ -11,6 +15,22 @@ const ClubPage = () => {
   const [discussions, setDiscussions] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const [showEventModal, setShowEventModal] = useState(false);
+  const [showDiscussionModal, setShowDiscussionModal] = useState(false);
+  const [formLoading, setFormLoading] = useState(false);
+
+  const [eventForm, setEventForm] = useState({
+    name: "",
+    description: "",
+    date: "",
+    location: "",
+  });
+
+  const [discussionForm, setDiscussionForm] = useState({
+    title: "",
+    content: "",
+  });
+
   useEffect(() => {
     fetchClubData();
   }, [clubId]);
@@ -19,11 +39,9 @@ const ClubPage = () => {
     try {
       setLoading(true);
 
-      // 🔥 Better: fetch club info
       const clubData = await clubService.getClubById(clubId);
       setClub(clubData);
 
-      // ⚠️ TEMP: filtering until backend route exists
       const eventsData = await eventService.getAllEvents();
       const filteredEvents = eventsData.events.filter(
         (e) => e.club?._id === clubId
@@ -32,12 +50,61 @@ const ClubPage = () => {
 
       const discussionsData =
         await discussionService.getDiscussionsByClub(clubId);
-
       setDiscussions(discussionsData.discussions || []);
     } catch (err) {
       console.error("Error loading club:", err);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleCreateEvent = async (e) => {
+    e.preventDefault();
+    try {
+      setFormLoading(true);
+
+      await eventService.createEvent({
+        ...eventForm,
+        club: clubId,
+      });
+
+      setShowEventModal(false);
+      setEventForm({
+        name: "",
+        description: "",
+        date: "",
+        location: "",
+      });
+
+      fetchClubData();
+    } catch (err) {
+      console.error("Event creation failed:", err);
+    } finally {
+      setFormLoading(false);
+    }
+  };
+
+  const handleCreateDiscussion = async (e) => {
+    e.preventDefault();
+    try {
+      setFormLoading(true);
+
+      await discussionService.createDiscussion({
+        ...discussionForm,
+        club: clubId,
+      });
+
+      setShowDiscussionModal(false);
+      setDiscussionForm({
+        title: "",
+        content: "",
+      });
+
+      fetchClubData();
+    } catch (err) {
+      console.error("Discussion creation failed:", err);
+    } finally {
+      setFormLoading(false);
     }
   };
 
@@ -50,7 +117,6 @@ const ClubPage = () => {
 
   return (
     <div className="min-h-screen bg-[#0a0e1a] text-white p-8">
-      
       {/* Club Header */}
       <div className="mb-10">
         <h1 className="text-4xl font-bold">{club?.name}</h1>
@@ -67,7 +133,10 @@ const ClubPage = () => {
             <Calendar size={20} /> Events
           </h2>
 
-          <button className="flex items-center gap-2 bg-green-600 px-4 py-2 rounded-lg hover:bg-green-700 transition">
+          <button
+            onClick={() => setShowEventModal(true)}
+            className="flex items-center gap-2 bg-green-600 px-4 py-2 rounded-lg hover:bg-green-700 transition"
+          >
             <Plus size={18} />
             Create Event
           </button>
@@ -102,7 +171,10 @@ const ClubPage = () => {
             <MessageCircle size={20} /> Discussions
           </h2>
 
-          <button className="flex items-center gap-2 bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+          <button
+            onClick={() => setShowDiscussionModal(true)}
+            className="flex items-center gap-2 bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-700 transition"
+          >
             <Plus size={18} />
             Start Discussion
           </button>
@@ -116,11 +188,10 @@ const ClubPage = () => {
               <Link
                 key={discussion._id}
                 to={`/dashboard/discussion/${discussion._id}`}
-
                 className="block bg-gray-800/50 p-5 rounded-xl border border-gray-700 hover:border-blue-500 transition"
               >
                 <h3 className="font-semibold text-lg mb-1">
-                  {discussion.title || "Discussion"}
+                  {discussion.title}
                 </h3>
                 <p className="text-gray-400 text-sm line-clamp-2">
                   {discussion.content}
@@ -130,6 +201,121 @@ const ClubPage = () => {
           </div>
         )}
       </div>
+
+      {/* EVENT MODAL */}
+      {showEventModal && (
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+          <div className="bg-gray-800 p-6 rounded-xl w-full max-w-md border border-gray-700">
+            <h3 className="text-xl font-bold mb-4">Create Event</h3>
+
+            <form onSubmit={handleCreateEvent} className="space-y-4">
+              <input
+                type="text"
+                placeholder="Event name"
+                value={eventForm.name}
+                onChange={(e) =>
+                  setEventForm({ ...eventForm, name: e.target.value })
+                }
+                className="w-full bg-gray-900 border border-gray-700 rounded-lg p-3"
+                required
+              />
+
+              <textarea
+                placeholder="Description"
+                value={eventForm.description}
+                onChange={(e) =>
+                  setEventForm({
+                    ...eventForm,
+                    description: e.target.value,
+                  })
+                }
+                className="w-full bg-gray-900 border border-gray-700 rounded-lg p-3"
+              />
+
+              <input
+                type="datetime-local"
+                value={eventForm.date}
+                onChange={(e) =>
+                  setEventForm({ ...eventForm, date: e.target.value })
+                }
+                className="w-full bg-gray-900 border border-gray-700 rounded-lg p-3"
+                required
+              />
+
+              <input
+                type="text"
+                placeholder="Location"
+                value={eventForm.location}
+                onChange={(e) =>
+                  setEventForm({
+                    ...eventForm,
+                    location: e.target.value,
+                  })
+                }
+                className="w-full bg-gray-900 border border-gray-700 rounded-lg p-3"
+              />
+
+              <button
+                type="submit"
+                disabled={formLoading}
+                className="w-full bg-green-600 hover:bg-green-700 py-2 rounded-lg"
+              >
+                {formLoading ? "Creating..." : "Create Event"}
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* DISCUSSION MODAL */}
+      {showDiscussionModal && (
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+          <div className="bg-gray-800 p-6 rounded-xl w-full max-w-md border border-gray-700">
+            <h3 className="text-xl font-bold mb-4">Start Discussion</h3>
+
+            <form
+              onSubmit={handleCreateDiscussion}
+              className="space-y-4"
+            >
+              <input
+                type="text"
+                placeholder="Discussion title"
+                value={discussionForm.title}
+                onChange={(e) =>
+                  setDiscussionForm({
+                    ...discussionForm,
+                    title: e.target.value,
+                  })
+                }
+                className="w-full bg-gray-900 border border-gray-700 rounded-lg p-3"
+                required
+              />
+
+              <textarea
+                placeholder="Write something..."
+                value={discussionForm.content}
+                onChange={(e) =>
+                  setDiscussionForm({
+                    ...discussionForm,
+                    content: e.target.value,
+                  })
+                }
+                rows={4}
+                className="w-full bg-gray-900 border border-gray-700 rounded-lg p-3"
+                required
+              />
+
+              <button
+                type="submit"
+                disabled={formLoading}
+                className="w-full bg-blue-600 hover:bg-blue-700 py-2 rounded-lg"
+              >
+                {formLoading ? "Posting..." : "Start Discussion"}
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
