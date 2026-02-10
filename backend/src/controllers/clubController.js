@@ -3,7 +3,7 @@ const Club = require("../models/clubModel");
 // Create a new club
 exports.createClub = async (req, res) => {
   try {
-    const { name, description } = req.body;
+    const { name, description,category } = req.body;
     const existingClub = await Club.findOne({ name });
     if (existingClub) {
       return res.status(400).json({ error: "Club already exists" });
@@ -12,6 +12,7 @@ exports.createClub = async (req, res) => {
       name,
       description,
       owner: req.user.id, // assumes authentication middleware sets req.user
+      category,
     });
     await club.save();
     res.status(201).json({ message: "Club created successfully", club });
@@ -46,10 +47,10 @@ exports.getClubById = async (req, res) => {
 // Update a club
 exports.updateClub = async (req, res) => {
   try {
-    const { name, description } = req.body;
+    const { name, description,category } = req.body;
     const club = await Club.findByIdAndUpdate(
       req.params.id,
-      { name, description },
+      { name, description ,category },
       { new: true },
     );
     if (!club) {

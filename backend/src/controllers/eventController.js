@@ -18,7 +18,11 @@ exports.createEvent = async (req, res) => {
       return res.status(404).json({ error: "Club not found" });
     }
 
-    const event = await Event.create(req.body);
+   const event = await Event.create({
+  ...req.body,
+  createdBy: req.user.id
+});
+
 
     res.status(201).json({ message: "Event created successfully", event });
   } catch (error) {
@@ -68,10 +72,26 @@ exports.updateEvent = async (req, res) => {
 // Delete an event
 exports.deleteEvent = async (req, res) => {
   try {
-    const event = await Event.findByIdAndDelete(req.params.id);
-    if (!event) return res.status(404).json({ error: "Event not found" });
+    const event = await Event.findById(req.params.id).populate("club");
+
+    if (!event) {
+      return res.status(404).json({ error: "Event not found" });
+    }
+
+    const isAdmin = req.user.role === "admin";
+    const isCreator = event.createdBy.toString() === req.user.id;
+    const isClubOwner = event.club.owner.toString() === req.user.id;
+
+    if (!isAdmin && !isCreator && !isClubOwner) {
+      return res.status(403).json({ error: "Access denied" });
+    }
+
+    await event.deleteOne();
+
     res.json({ message: "Event deleted successfully" });
+
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
+
