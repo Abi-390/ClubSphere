@@ -1,13 +1,19 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
+
 import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
+import ClubPage from './pages/ClubPage';
+import DiscussionPage from './pages/DiscussionPage';
+
 import './index.css';
 
-// Protected Route Component
+// =======================
+// Protected Route
+// =======================
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
 
@@ -22,7 +28,9 @@ const ProtectedRoute = ({ children }) => {
   return isAuthenticated ? children : <Navigate to="/login" />;
 };
 
-// Public Route Component (redirect to dashboard if already logged in)
+// =======================
+// Public Route
+// =======================
 const PublicRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
 
@@ -37,44 +45,72 @@ const PublicRoute = ({ children }) => {
   return !isAuthenticated ? children : <Navigate to="/dashboard" />;
 };
 
+// =======================
+// Routes
+// =======================
 function AppRoutes() {
   return (
     <Routes>
+
       {/* Public Routes */}
       <Route path="/" element={<LandingPage />} />
-      <Route 
-        path="/login" 
+
+      <Route
+        path="/login"
         element={
           <PublicRoute>
             <Login />
           </PublicRoute>
-        } 
+        }
       />
-      <Route 
-        path="/register" 
+
+      <Route
+        path="/register"
         element={
           <PublicRoute>
             <Register />
           </PublicRoute>
-        } 
+        }
       />
 
       {/* Protected Routes */}
-      <Route 
-        path="/dashboard" 
+      <Route
+        path="/dashboard"
         element={
           <ProtectedRoute>
             <Dashboard />
           </ProtectedRoute>
-        } 
+        }
       />
 
-      {/* Catch all - redirect to home */}
+      <Route
+        path="/dashboard/club/:clubId"
+        element={
+          <ProtectedRoute>
+            <ClubPage />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/dashboard/discussion/:discussionId"
+        element={
+          <ProtectedRoute>
+            <DiscussionPage />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Catch-all */}
       <Route path="*" element={<Navigate to="/" />} />
+
     </Routes>
   );
 }
 
+// =======================
+// App Wrapper
+// =======================
 function App() {
   return (
     <Router>

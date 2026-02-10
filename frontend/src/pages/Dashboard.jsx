@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { clubService, eventService } from '../services/api.service';
+import ClubCard from '../components/ClubCard';
 import { 
   Plus, 
   Users, 
@@ -259,38 +260,15 @@ const Dashboard = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {clubs.map((club) => (
-              <div key={club._id} className="bg-gray-800/50 rounded-xl p-6 border border-gray-700/50 hover:border-gray-600/50 transition-all">
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex-1">
-                    <h3 className="text-lg font-bold text-white mb-2">{club.name}</h3>
-                    <span className="inline-block px-3 py-1 bg-blue-500/20 text-blue-400 text-xs rounded-full">
-                      {club.category}
-                    </span>
-                  </div>
-                  {club.owner === user?.id && (
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => openEditClub(club)}
-                        className="p-2 hover:bg-gray-700 rounded-lg transition-colors"
-                      >
-                        <Edit className="text-blue-400" size={16} />
-                      </button>
-                      <button
-                        onClick={() => handleDeleteClub(club._id)}
-                        className="p-2 hover:bg-gray-700 rounded-lg transition-colors"
-                      >
-                        <Trash2 className="text-red-400" size={16} />
-                      </button>
-                    </div>
-                  )}
-                </div>
-                <p className="text-gray-400 text-sm line-clamp-3">{club.description}</p>
-                <div className="mt-4 flex items-center gap-2 text-xs text-gray-500">
-                  <Users size={14} />
-                  <span>{club.members?.length || 0} members</span>
-                </div>
-              </div>
-            ))}
+  <ClubCard
+    key={club._id}
+    club={club}
+    currentUserId={user?.id}
+    onEdit={openEditClub}
+    onDelete={handleDeleteClub}
+  />
+))}
+
           </div>
 
           {clubs.length === 0 && (
