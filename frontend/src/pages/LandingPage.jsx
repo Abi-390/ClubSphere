@@ -105,7 +105,7 @@ const LandingPage = () => {
             <div className="space-y-8 animate-slideInLeft">
               <div className="inline-block">
                 <span className="text-xs font-semibold tracking-wider text-blue-400 bg-blue-500/10 px-4 py-2 rounded-full border border-blue-500/20">
-                  PLATFORM VERSION 2.0 NOW LIVE
+                  PLATFORM VERSION 1.0 NOW LIVE
                 </span>
               </div>
               
@@ -353,8 +353,13 @@ const LandingPage = () => {
 
           {/* Bottom Bar */}
           <div className="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4">
+            
+             <p className="text-gray-500 text-sm">
+              Built with ❤️ & Passion by Abinash.
+            </p>
+            
             <p className="text-gray-500 text-sm">
-              © 2024 ClubSphere Inc. All rights reserved.
+              © 2026 ClubSphere Inc. All rights reserved.
             </p>
             <div className="flex gap-6">
               <a href="#" className="text-gray-500 hover:text-white transition-colors text-sm">
