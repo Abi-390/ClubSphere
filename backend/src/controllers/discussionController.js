@@ -56,16 +56,21 @@ exports.getReplies = async (req, res) => {
 // Get all discussions
 exports.getDiscussions = async (req, res) => {
   try {
-    const discussions = await Discussion.find({ parent: null })
-      .populate('author', 'name email')
-      .populate('club', 'name')
-      .populate('event', 'name');
+    const discussions = await Discussion.find({
+      club: req.params.clubId,
+      parent: null
+    })
+      .populate("author", "name email")
+      .populate("club", "name")
+      .populate("event", "name")
+      .sort({ createdAt: -1 });
 
     res.json({ discussions });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
+
 
 
 // Get a single discussion by ID
