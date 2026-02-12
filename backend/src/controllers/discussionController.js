@@ -43,7 +43,7 @@ exports.replyToDiscussion = async (req, res) => {
 exports.getReplies = async (req, res) => {
   try {
     const replies = await Discussion.find({ parent: req.params.id })
-      .populate('author', 'name email')
+      .populate('author', 'username email')
       .sort({ createdAt: 1 });
 
     res.json({ replies });
@@ -60,9 +60,9 @@ exports.getDiscussions = async (req, res) => {
       club: req.params.clubId,
       parent: null
     })
-      .populate("author", "name email")
-      .populate("club", "name")
-      .populate("event", "name")
+      .populate("author", "username email")
+      .populate("club", "username")
+      .populate("event", "username")
       .sort({ createdAt: -1 });
 
     res.json({ discussions });
@@ -77,9 +77,9 @@ exports.getDiscussions = async (req, res) => {
 exports.getDiscussionById = async (req, res) => {
   try {
     const discussion = await Discussion.findById(req.params.id)
-      .populate('author', 'name email')
-      .populate('club', 'name')
-      .populate('event', 'name')
+      .populate('author', 'username email')
+      .populate('club', 'username')
+      .populate('event', 'username')
       .populate('parent', 'title');
     if (!discussion) return res.status(404).json({ error: 'Discussion not found' });
     res.json({ discussion });

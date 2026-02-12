@@ -8,7 +8,7 @@ const ReplyCard = ({ reply }) => {
       </p>
 
       <div className="text-xs text-gray-500">
-        Replied by {reply.author?.name || "User"}
+        Replied by {reply.author?.username || "User"}
       </div>
     </div>
   );

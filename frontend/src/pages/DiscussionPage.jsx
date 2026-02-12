@@ -79,9 +79,11 @@ const DiscussionPage = () => {
           {discussion.content}
         </p>
 
-        <div className="text-xs text-gray-500">
-          Posted on {new Date(discussion.createdAt).toLocaleString()}
-        </div>
+       <div className="text-xs text-gray-500">
+  Posted by {discussion.author?.username || "User"} •{" "}
+  {new Date(discussion.createdAt).toLocaleString()}
+</div>
+
       </div>
 
       {/* Replies Section */}
