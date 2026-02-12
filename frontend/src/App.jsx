@@ -11,6 +11,7 @@ import DiscussionPage from './pages/DiscussionPage';
 import AboutPage from "./pages/AboutPage";
 import Blog from './pages/Blog'
 import './index.css';
+import ScrollToTop from './components/ScrollToTop';
 
 // =======================
 // Protected Route
@@ -52,10 +53,11 @@ const PublicRoute = ({ children }) => {
 function AppRoutes() {
   return (
     <Routes>
-
+       
+      
       {/* Public Routes */}
       <Route path="/" element={<LandingPage />} />
-
+    
       <Route
         path="/login"
         element={
@@ -117,6 +119,7 @@ function AppRoutes() {
 function App() {
   return (
     <Router>
+        <ScrollToTop />
       <AuthProvider>
         <AppRoutes />
       </AuthProvider>
