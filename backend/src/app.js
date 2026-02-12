@@ -16,7 +16,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-  origin: "https://clubsphere-tau.vercel.app/",
+  origin: "https://clubsphere-tau.vercel.app",
   credentials: true
 }));
 
