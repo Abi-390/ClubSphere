@@ -8,6 +8,7 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import ClubPage from './pages/ClubPage';
 import DiscussionPage from './pages/DiscussionPage';
+import AboutPage from "./pages/AboutPage";
 
 import './index.css';
 
@@ -72,6 +73,7 @@ function AppRoutes() {
           </PublicRoute>
         }
       />
+      <Route path="/about" element={<AboutPage />} />
 
       {/* Protected Routes */}
       <Route

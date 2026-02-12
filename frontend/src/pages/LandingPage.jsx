@@ -49,8 +49,9 @@ const LandingPage = () => {
                 >
                   Events
                 </Link>
-             
-              <a href="#about" className="text-gray-300 hover:text-white transition-colors">About</a>
+             <Link to="/about"className="text-gray-300 hover:text-white transition-colors">About</Link>
+
+              
             </div>
 
             {/* Auth Buttons */}
