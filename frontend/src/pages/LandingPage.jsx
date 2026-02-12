@@ -43,7 +43,13 @@ const LandingPage = () => {
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">
               <a href="#features" className="text-gray-300 hover:text-white transition-colors">Features</a>
-              <a href="#events" className="text-gray-300 hover:text-white transition-colors">Events</a>
+              <Link 
+                  to="/login" 
+                 className="text-gray-300 hover:text-white transition-colors"
+                >
+                  Events
+                </Link>
+             
               <a href="#about" className="text-gray-300 hover:text-white transition-colors">About</a>
             </div>
 
@@ -76,7 +82,14 @@ const LandingPage = () => {
           {isMenuOpen && (
             <div className="md:hidden mt-6 pb-6 space-y-4 animate-fadeIn">
               <a href="#features" className="block text-gray-300 hover:text-white transition-colors">Features</a>
-              <a href="#events" className="block text-gray-300 hover:text-white transition-colors">Events</a>
+               <Link 
+                  to="/login" 
+                  className="block text-gray-300 hover:text-white transition-colors"
+                >
+                  Events
+                </Link>
+              
+              
               <a href="#about" className="block text-gray-300 hover:text-white transition-colors">About</a>
               <div className="pt-4 space-y-3">
                 <Link 
@@ -180,7 +193,7 @@ const LandingPage = () => {
                     <Users className="text-green-500" size={20} />
                   </div>
                   <div>
-                    <div className="text-2xl font-bold">85K+</div>
+                    <div className="text-2xl font-bold">1K+</div>
                     <div className="text-xs text-gray-400">Total Members</div>
                   </div>
                 </div>
@@ -195,9 +208,9 @@ const LandingPage = () => {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
-              { label: 'ACTIVE CLUBS', value: '1.2k+', color: 'text-white' },
-              { label: 'TOTAL MEMBERS', value: '85k+', color: 'text-white' },
-              { label: 'EVENTS HELD', value: '10k+', color: 'text-white' },
+              { label: 'ACTIVE CLUBS', value: '1k+', color: 'text-white' },
+              { label: 'TOTAL MEMBERS', value: '1k+', color: 'text-white' },
+              { label: 'EVENTS HELD', value: '1k+', color: 'text-white' },
               { label: 'SUCCESS RATE', value: '99.9%', color: 'text-blue-500' }
             ].map((stat, i) => (
               <div key={i} className="text-center animate-fadeIn" style={{ animationDelay: `${i * 100}ms` }}>
@@ -225,21 +238,21 @@ const LandingPage = () => {
                 icon: <Target className="text-blue-500" size={32} />,
                 title: 'Join a Club',
                 description: 'Discover thousands of communities tailored to your interests, from tech and design to hiking and gardening.',
-                cta: 'Find clubs',
+                cta: <Link to="/login">Find clubs</Link>,
                 color: 'blue'
               },
               {
                 icon: <Users className="text-purple-500" size={32} />,
                 title: 'Create Your Community',
                 description: 'Set up role-based access and custom permissions to manage your team effectively and securely on your platform.',
-                cta: 'Build your brand',
+               cta: <Link to="/login">Build your brand</Link>,
                 color: 'purple'
               },
               {
                 icon: <Calendar className="text-green-500" size={32} />,
                 title: 'Schedule Events',
                 description: 'Plan, promote, and track events for your online or offline gatherings seamlessly with integrated calendars.',
-                cta: 'Book events',
+               cta: <Link to="/login">Book events</Link>,
                 color: 'green'
               }
             ].map((feature, i) => (
