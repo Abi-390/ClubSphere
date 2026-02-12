@@ -153,15 +153,30 @@ const LandingPage = () => {
 
             {/* Right Content - Dashboard Preview */}
             <div className="relative animate-slideInRight">
-              <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-2xl p-8 backdrop-blur-sm border border-gray-700/50 shadow-2xl">
+              <div className="relative bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-2xl p-8 backdrop-blur-sm border border-gray-700/50 shadow-2xl ">
+
+  {/* Background Image */}
+  <img
+  src="/dashboard-preview.png"
+  alt="Dashboard Preview"
+  className="absolute inset-0 w-full h-full object-cover pointer-events-none select-none"
+/>
+
+{/* Top → Bottom Opacity Gradient */}
+<div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/10 to-black/95"></div>
+
+
+
+  {/* Overlay for better contrast */}
+  <div className="absolute inset-0 bg-[#0a0e1a]/60 z-0"></div>
+
+  {/* Content Wrapper */}
+  <div className="relative z-10">
+
                 <div className="mb-6">
                   <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-sm font-semibold text-gray-400">Club Management</h3>
-                    <div className="flex gap-2">
-                      <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                      <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                      <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                    </div>
+                    
+                    
                   </div>
                 </div>
                 
@@ -188,12 +203,12 @@ const LandingPage = () => {
               </div>
               
               {/* Floating Stats */}
-              <div className="absolute -bottom-6 -left-6 bg-gray-800 rounded-xl p-4 shadow-xl border border-gray-700 animate-float">
+              <div className="absolute -bottom-6 -left-6 bg-gray-800 rounded-xl p-4 shadow-xl border border-gray-700 animate-float z-99">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center">
                     <Users className="text-green-500" size={20} />
                   </div>
-                  <div>
+                  <div >
                     <div className="text-2xl font-bold">1K+</div>
                     <div className="text-xs text-gray-400">Total Members</div>
                   </div>
@@ -201,7 +216,8 @@ const LandingPage = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div>  </div> {/* End Content Wrapper */}
+
       </section>
 
       {/* Stats Section */}
@@ -347,7 +363,7 @@ const LandingPage = () => {
               },
               {
                 title: 'Company',
-                links: ['About Us', 'Careers', 'Blog']
+                links: [ <Link to="/about"className="text-gray-300 hover:text-white transition-colors ">About Us</Link>, 'Careers', 'Blog']
               }
             ].map((section, i) => (
               <div key={i}>
