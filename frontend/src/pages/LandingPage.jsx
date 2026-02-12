@@ -363,7 +363,7 @@ const LandingPage = () => {
               },
               {
                 title: 'Company',
-                links: [ <Link to="/about"className="text-gray-300 hover:text-white transition-colors ">About Us</Link>, 'Careers', 'Blog']
+                links: [ <Link to="/about"className="text-gray-300 hover:text-white transition-colors ">About Us</Link>, 'Careers', <Link to="/blog"className="text-gray-300 hover:text-white transition-colors ">Who built this?</Link>]
               }
             ].map((section, i) => (
               <div key={i}>

@@ -9,7 +9,7 @@ import Dashboard from './pages/Dashboard';
 import ClubPage from './pages/ClubPage';
 import DiscussionPage from './pages/DiscussionPage';
 import AboutPage from "./pages/AboutPage";
-
+import Blog from './pages/Blog'
 import './index.css';
 
 // =======================
@@ -74,6 +74,7 @@ function AppRoutes() {
         }
       />
       <Route path="/about" element={<AboutPage />} />
+      <Route path="/blog" element={<Blog />} />
 
       {/* Protected Routes */}
       <Route
